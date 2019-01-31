@@ -23,7 +23,7 @@ namespace Datalayer.Repositories {
         // Start of DbSet(s)
 
         // public DbSet<{Model}> _name { get; set; }
-
+        public DbSet<FormalPostModel> _FormalPosts { get; set; }
         // End of DbSet(s)
     }
 }
