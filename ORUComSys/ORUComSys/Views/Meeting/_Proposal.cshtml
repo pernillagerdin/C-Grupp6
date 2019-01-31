@@ -1,0 +1,72 @@
+﻿@model Datalayer.Models.MeetingProposalModel
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>MeetingProposalModel</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.StartTimes, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.StartTimes, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.StartTimes, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="col-md-10">
+            <button type="button" id="addNewTimeBtn" class="btn btn-primary">Add additional time</button>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Location, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Location, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Location, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <textarea class="form-control card-text" id="PostText" placeholder="Provide information about the meeting (optional)"></textarea>
+            </div>
+        </div>
+        <hr />
+        <h4>Invite people to your meeting</h4>
+        <br />
+
+        <div class="form-group" id="inviteeListDiv">
+            <div class="col-md-10">
+                <button type="button" data-toggle="collapse" data-target="#inviteeList" id="showInviteesBtn" class="btn btn-secondary form-control">Show Invitees</button>
+            </div>            
+        </div>
+
+        <div class="form-group collapse" id="inviteeList">
+            <div class="col-md-10" id="inviteeNames">
+                <p>Nico</p>
+                <p>Corazon</p>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-10">
+                <input type="text" class="form-control" id="personSearch" placeholder="Search people by name" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button type="submit" id="proposeMeetingBtn" class="btn btn-primary" value="Create">Create Proposal</button>
+            </div>
+        </div>
+    </div>
+}
+<div class="col-md-10">
+    <button type="button" id="cancelProposalBtn" class="btn btn-secondary">Cancel</button>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
