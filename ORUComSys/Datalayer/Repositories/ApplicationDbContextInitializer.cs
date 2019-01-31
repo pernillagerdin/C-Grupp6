@@ -68,8 +68,16 @@ namespace Datalayer.Repositories {
                 UserName = "saleh@orucomsys.com"
             };
             manager.Create(salehU, "password"); // manager.Create(ApplicationUser user, string password);
-            
+
             // Create more example data as you create more DbSets as the database flushes and resets every time you boot the project. (Current initializer setting: DropCreateDatabaseAlways<{context}>)
+
+            CategoryModels category1 = new CategoryModels
+            {
+                Name = "A Category"
+            };
+
+            context.categories.AddRange(new[] { category1 });
+            context.SaveChanges();
         }
     }
 }

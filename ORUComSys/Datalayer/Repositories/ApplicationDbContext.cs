@@ -22,6 +22,7 @@ namespace Datalayer.Repositories {
 
         // Start of DbSet(s)
 
+        public DbSet<CategoryModels> categories { get; set; }
         // public DbSet<{Model}> _name { get; set; }
 
         // End of DbSet(s)

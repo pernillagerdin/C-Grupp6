@@ -15,3 +15,47 @@
     <strong>Support:</strong>   <a href="mailto:Support@example.com">Support@example.com</a><br />
     <strong>Marketing:</strong> <a href="mailto:Marketing@example.com">Marketing@example.com</a>
 </address>
+
+<input type="text" id="Category"/>
+<button id="Add" class="btn-dark">Add Category</button>
+
+<select id="CategoryComboBox">
+
+</select>
+
+@section scripts{
+    <script type="text/javascript">
+        $('#Add').on('click', function () {
+            var newCate = $('#Category').val();
+            if (newCate != "") {
+                $.post('/api/cate/AddCate?cate='+newCate,
+                function() {
+
+                    window.location.reload();
+                    alert("Great");
+                    });
+            }
+            else {
+                alert("Fuck You !!! mother fucker");
+                }
+        });
+        $(document).ready(function () {
+            $.ajax({
+                type: "GET",
+                url: '/api/cate/getCate',
+                datatype: 'JSON',
+                data: {},
+                success: function (data) {
+                    var javascript = "";
+                    for (var i = 0; i < data.length; i++) {
+                        javascript += "<option value='" + data[i].Id + "'>" + data[i].Name + "</option>";
+                    }
+                    console.log(data);
+                    $('#CategoryComboBox').append(javascript);
+                }
+                  
+            });
+        });
+        
+    </script>
+    }
