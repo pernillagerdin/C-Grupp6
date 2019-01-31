@@ -1,0 +1,14 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Meetings</h2>
+<button type="button" id="proposeMeetingBtn"class="btn btn-primary">Propose New Meeting</button>
+<div id="newMeetingDiv" class="d-none">
+    @Html.Partial("_Proposal")
+</div>
+@section Scripts{
+    <script src="~/Scripts/custom/meetings.js"></script>
+}
+
