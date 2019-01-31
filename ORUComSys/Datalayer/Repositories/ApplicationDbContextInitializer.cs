@@ -1,13 +1,26 @@
 ﻿using Datalayer.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using System;
 using System.Data.Entity;
+using System.IO;
 
 namespace Datalayer.Repositories {
     public class ApplicationDbContextInitializer : DropCreateDatabaseAlways<ApplicationDbContext> { // Re-create database with example data every time you boot the project.
         protected override void Seed(ApplicationDbContext context) {
             base.Seed(context);
             SeedUsers(context);
+        }
+
+        public static byte[] SetInitializerProfilePicture(string endPath) {
+            // Setting default avatar for all profiles
+            string path = AppDomain.CurrentDomain.BaseDirectory + endPath;
+            FileStream file = new FileStream(path, FileMode.Open);
+            byte[] avatar = null;
+            using (var binary = new BinaryReader(file)) {
+                avatar = binary.ReadBytes((int)file.Length);
+            }
+            return avatar;
         }
 
         public static void SeedUsers(ApplicationDbContext context) {
@@ -68,8 +81,83 @@ namespace Datalayer.Repositories {
                 UserName = "saleh@orucomsys.com"
             };
             manager.Create(salehU, "password"); // manager.Create(ApplicationUser user, string password);
-            
+
             // Create more example data as you create more DbSets as the database flushes and resets every time you boot the project. (Current initializer setting: DropCreateDatabaseAlways<{context}>)
+
+            ProfileModels albinP = new ProfileModels {
+                Id = albinU.Id,
+                FirstName = "Albin",
+                LastName = "Salmonson",
+                IsActivated = true,
+                ProfileImage = SetInitializerProfilePicture("/Content/Images/defaultAvatar.png")
+            };
+
+            ProfileModels darioP = new ProfileModels {
+                Id = darioU.Id,
+                FirstName = "Dario",
+                LastName = "Borojevic",
+                IsActivated = true,
+                ProfileImage = SetInitializerProfilePicture("/Content/Images/defaultAvatar.png")
+            };
+
+            ProfileModels eliasP = new ProfileModels {
+                Id = eliasU.Id,
+                FirstName = "Elias",
+                LastName = "Stagg",
+                IsActivated = true,
+                ProfileImage = SetInitializerProfilePicture("/Content/Images/defaultAvatar.png")
+            };
+
+            ProfileModels moazP = new ProfileModels {
+                Id = moazU.Id,
+                FirstName = "Moaz",
+                LastName = "Bahtiti",
+                IsActivated = true,
+                ProfileImage = SetInitializerProfilePicture("/Content/Images/defaultAvatar.png")
+            };
+
+            ProfileModels nicoP = new ProfileModels {
+                Id = nicoU.Id,
+                FirstName = "Nicolas",
+                LastName = "Björkefors",
+                IsActivated = true,
+                ProfileImage = SetInitializerProfilePicture("/Content/Images/defaultAvatar.png")
+            };
+
+            ProfileModels oskarP = new ProfileModels {
+                Id = oskarU.Id,
+                FirstName = "Oskar",
+                LastName = "Olofsson",
+                IsActivated = true,
+                ProfileImage = SetInitializerProfilePicture("/Content/Images/defaultAvatar.png")
+            };
+
+            ProfileModels patrikP = new ProfileModels {
+                Id = patrikU.Id,
+                FirstName = "Patrik",
+                LastName = "Zetterblom",
+                IsActivated = true,
+                ProfileImage = SetInitializerProfilePicture("/Content/Images/defaultAvatar.png")
+            };
+
+            ProfileModels pernillaP = new ProfileModels {
+                Id = pernillaU.Id,
+                FirstName = "Pernilla",
+                LastName = "Gerdin",
+                IsActivated = true,
+                ProfileImage = SetInitializerProfilePicture("/Content/Images/defaultAvatar.png")
+            };
+
+            ProfileModels salehP = new ProfileModels {
+                Id = salehU.Id,
+                FirstName = "Saleh",
+                LastName = "Hassan",
+                IsActivated = true,
+                ProfileImage = SetInitializerProfilePicture("/Content/Images/defaultAvatar.png")
+            };
+
+            context.Profiles.AddRange(new[] { albinP, darioP, eliasP, moazP, nicoP, oskarP, patrikP, pernillaP, salehP });
+            context.SaveChanges();
         }
     }
 }

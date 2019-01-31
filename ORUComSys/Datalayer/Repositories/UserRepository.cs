@@ -6,8 +6,7 @@ namespace Datalayer.Repositories {
         public UserRepository(ApplicationDbContext context) : base(context) { }
 
         public string GetUserIdByEmail(string email) {
-            ApplicationUser user = items.First((u) => u.Email.Equals(email));
-            return user.Id;
+            return items.First((u) => u.Email.Equals(email)).Id;
         }
     }
 }

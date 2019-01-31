@@ -6,8 +6,8 @@ namespace Datalayer.Repositories {
     public class ProfileRepository : Repository<ProfileModels, string> {
         public ProfileRepository(ApplicationDbContext context) : base(context) { }
 
-        public List<ProfileModels> GetAllProfilesExceptCurrent(string Id) {
-            return items.Where((p) => !p.Id.Equals(Id)).ToList();
+        public List<ProfileModels> GetAllProfilesExceptCurrent(string userId) {
+            return items.Where((p) => !p.Id.Equals(userId)).ToList();
         }
 
         public bool IfProfileExists(string userId) {

@@ -1,4 +1,5 @@
 ﻿using Datalayer.Models;
+using Datalayer.Repositories;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
@@ -14,7 +15,13 @@ namespace ORUComSys.Controllers {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
+        private ProfileRepository profileRepository;
+        private UserRepository userRepository;
+
         public AccountController() {
+            ApplicationDbContext context = new ApplicationDbContext();
+            profileRepository = new ProfileRepository(context);
+            userRepository = new UserRepository(context);
         }
 
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager) {
@@ -63,6 +70,10 @@ namespace ORUComSys.Controllers {
             var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
             switch (result) {
                 case SignInStatus.Success:
+                    string currentUserId = userRepository.GetUserIdByEmail(model.Email);
+                    if (!profileRepository.IfProfileExists(currentUserId)) {
+                        return RedirectToAction("Create", "Profile"); // If user has no profile, they get to create one
+                    }
                     return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");
@@ -138,7 +149,7 @@ namespace ORUComSys.Controllers {
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Create", "Profile");
                 }
                 AddErrors(result);
             }

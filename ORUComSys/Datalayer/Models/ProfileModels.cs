@@ -23,6 +23,8 @@ namespace Datalayer.Models {
         [Display(Name = "Profile Image")]
         public byte[] ProfileImage { get; set; }
 
+        public bool IsActivated { get; set; } = true; // Maybe not set to default here?
+
         [Display(Name = "Admin")]
         public bool IsAdmin { get; set; }
     }

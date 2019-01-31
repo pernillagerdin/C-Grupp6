@@ -23,6 +23,7 @@ namespace Datalayer.Repositories {
         // Start of DbSet(s)
 
         // public DbSet<{Model}> _name { get; set; }
+        public DbSet<ProfileModels> Profiles { get; set; }
 
         // End of DbSet(s)
     }
