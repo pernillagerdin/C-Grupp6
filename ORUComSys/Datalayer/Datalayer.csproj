@@ -55,9 +55,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\ProfileModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\ApplicationDbContext.cs" />
     <Compile Include="Repositories\ApplicationDbContextInitializer.cs" />
+    <Compile Include="Repositories\IIdentifiable.cs" />
+    <Compile Include="Repositories\ProfileRepository.cs" />
+    <Compile Include="Repositories\Repository.cs" />
+    <Compile Include="Repositories\UserRepository.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
